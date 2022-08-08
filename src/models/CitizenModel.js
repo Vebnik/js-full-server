@@ -36,59 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var CitizenModel_1 = require("../models/CitizenModel");
-var DataControllers = /** @class */ (function () {
-    function DataControllers() {
+var sequelize_1 = require("sequelize");
+var path = require("path");
+var CitizenModel = /** @class */ (function () {
+    function CitizenModel() {
+        this.sequelize = new sequelize_1.Sequelize({
+            storage: path.join('src', 'database', 'dataBaseAll.sqlite'),
+            dialect: 'sqlite',
+            logging: false
+        });
+        this.User = this.sequelize.define('Citizen', {
+            name: sequelize_1.DataTypes.STRING,
+            city_id: sequelize_1.DataTypes.NUMBER,
+            groups: sequelize_1.DataTypes.JSON
+        });
     }
-    DataControllers.prototype.getCitizens = function (req, res, next) {
+    CitizenModel.prototype.getModel = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var Citizen, allData, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, CitizenModel_1.default.getModel()];
+                    case 0: return [4 /*yield*/, this.User.sync({ alter: true })];
                     case 1:
-                        Citizen = _a.sent();
-                        return [4 /*yield*/, Citizen.findAll()];
-                    case 2:
-                        allData = _a.sent();
-                        res.json({ ok: true, data: allData });
-                        return [3 /*break*/, 4];
-                    case 3:
-                        err_1 = _a.sent();
-                        res.json({ ok: false, data: err_1.message });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        _a.sent();
+                        return [2 /*return*/, this.User];
                 }
             });
         });
     };
-    DataControllers.prototype.setCitizen = function (req, res, nex) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, name_1, city_id, groups, Citizen, err_2;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _b.trys.push([0, 3, , 4]);
-                        _a = req.body, name_1 = _a.name, city_id = _a.city_id, groups = _a.groups;
-                        return [4 /*yield*/, CitizenModel_1.default.getModel()];
-                    case 1:
-                        Citizen = _b.sent();
-                        return [4 /*yield*/, Citizen.create({ name: name_1, city_id: city_id, groups: groups })];
-                    case 2:
-                        _b.sent();
-                        res.json({ ok: true, data: 'Citizen created' });
-                        return [3 /*break*/, 4];
-                    case 3:
-                        err_2 = _b.sent();
-                        res.json({ ok: false, data: err_2.message });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return DataControllers;
+    return CitizenModel;
 }());
-exports.default = new DataControllers();
+exports.default = new CitizenModel();

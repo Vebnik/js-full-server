@@ -1,4 +1,4 @@
-import CitizenModel from "../database/CitizenModel";
+import CitizenModel from "../models/CitizenModel";
 import {CitizenCreate} from "../interface/Citizen";
 
 class DataControllers {
