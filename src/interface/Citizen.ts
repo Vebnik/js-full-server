@@ -8,3 +8,10 @@ export interface CitizenCreate {
 	city_id: number
 	groups: Array<Group>
 }
+
+export interface CityCreate {
+	id: number
+	name: string
+	data: string
+}
+

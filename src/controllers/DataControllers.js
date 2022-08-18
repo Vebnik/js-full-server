@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var CitizenModel_1 = require("../models/CitizenModel");
+var CitiesModel_1 = require("../models/CitiesModel");
 var DataControllers = /** @class */ (function () {
     function DataControllers() {
     }
@@ -83,6 +84,91 @@ var DataControllers = /** @class */ (function () {
                     case 3:
                         err_2 = _b.sent();
                         res.json({ ok: false, data: err_2.message });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DataControllers.prototype.setCitizens = function (req, res, nex) {
+        return __awaiter(this, void 0, void 0, function () {
+            var citizens, Citizen_1, err_3;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        citizens = req.body;
+                        return [4 /*yield*/, CitizenModel_1.default.getModel()];
+                    case 1:
+                        Citizen_1 = _a.sent();
+                        citizens.map(function (el) { return __awaiter(_this, void 0, void 0, function () {
+                            var name, city_id, groups;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        name = el.name, city_id = el.city_id, groups = el.groups;
+                                        return [4 /*yield*/, Citizen_1.create({ name: name, city_id: city_id, groups: groups })];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        res.json({ ok: true, data: "Citizens created" });
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_3 = _a.sent();
+                        res.json({ ok: false, data: err_3.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DataControllers.prototype.getCity = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var City, allData, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, CitiesModel_1.default.getModel()];
+                    case 1:
+                        City = _a.sent();
+                        return [4 /*yield*/, City.findAll()];
+                    case 2:
+                        allData = _a.sent();
+                        res.json({ ok: true, data: allData });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_4 = _a.sent();
+                        res.json({ ok: false, data: err_4.message });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DataControllers.prototype.setCity = function (req, res, nex) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, id, name_2, data, City, err_5;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 3, , 4]);
+                        _a = req.body, id = _a.id, name_2 = _a.name, data = _a.data;
+                        return [4 /*yield*/, CitiesModel_1.default.getModel()];
+                    case 1:
+                        City = _b.sent();
+                        return [4 /*yield*/, City.create({ id: id, name: name_2, data: data })];
+                    case 2:
+                        _b.sent();
+                        res.json({ ok: true, data: 'City created' });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_5 = _b.sent();
+                        res.json({ ok: false, data: err_5.message });
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }

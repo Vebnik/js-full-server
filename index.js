@@ -9,4 +9,4 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookie());
 app.use('/api', Router_1.default);
-app.listen('5000', function () { return console.log('App listen 5000 PORT'); });
+app.listen(process.env.PORT || '5000', function () { return console.log('App listen 5000 PORT'); });
